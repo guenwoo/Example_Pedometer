@@ -31,6 +31,13 @@
             android:id="@+id/btn_recode"
             android:layout_weight="1" />
 
+        <Button
+            android:text="지도 확인"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_map"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
     <FrameLayout

@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +18,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button RunRecode = (Button)findViewById(R.id.btn_recode);
         Button RunScreen = (Button)findViewById(R.id.btn_screen);
+        Button RunMap = (Button)findViewById(R.id.btn_map);
 
         RunRecode.setOnClickListener(mClickListener);
         RunScreen.setOnClickListener(mClickListener);
+        RunMap.setOnClickListener(mClickListener);
 
         SharedPreferences pref = getSharedPreferences("Setting",0);
         boolean isStart = pref.getBoolean("isStart", false);
@@ -53,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.btn_screen:
                     fr = new FragmentRunScreen();
                     break;
+                case R.id.btn_map:
+                    fr = new FragmentMap();
+                    break;
+
             }
 
             FragmentManager fm = getFragmentManager();

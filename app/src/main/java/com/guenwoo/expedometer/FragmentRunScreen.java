@@ -12,10 +12,13 @@ import android.view.ViewGroup;
 import android.app.Fragment;
 import android.widget.Button;
 import android.widget.TextView;
-import com.nhn.android.nmaps.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.guenwoo.expedometer.GPStoAddress;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by SPECIAL-GW on 2017-01-14.
@@ -26,6 +29,10 @@ public class FragmentRunScreen extends Fragment
 
     Button BtnStart; // Start, Eng Toggle
     TextView tvCounting; // Walking Count
+    TextView tvCurLocation;
+    String Address;
+
+    GPStoAddress makeAddress;
 
     // Serivce , Intent
     Intent SensorIntent;
@@ -49,9 +56,13 @@ public class FragmentRunScreen extends Fragment
 
         SensorIntent = new Intent(getActivity(),SensorService.class);
         tvCounting = (TextView)view.findViewById(R.id.textView2);
+        tvCurLocation = (TextView)view.findViewById(R.id.textview_location);
         receiver = new CountingRecever();
 
         BtnStart = (Button)view.findViewById(R.id.btn_toggle);
+
+        makeAddress = new GPStoAddress(getActivity());
+        makeAddress.getMyLocation();
 
         if(bundle!= null && bundle.getBoolean("isStart") == true)
         {
@@ -65,6 +76,9 @@ public class FragmentRunScreen extends Fragment
 
                     String oTime = "";
                     SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd");
+
+                    Address = makeAddress.getAddress();
+                    tvCurLocation.setText(Address);
 
                     // Preference 값 - 로드
                     String saveTime = prefs.getString("Days", "");
@@ -82,7 +96,7 @@ public class FragmentRunScreen extends Fragment
                     edit.putString("Days",oTime);
                     edit.commit();
 
-                    // 종류 후 재 시작 시 회수 표기
+                    // 종료 후 재 시작 시 회수 표기
                     tvCounting.setText( values.Step);
 
                     IntentFilter mainFilter = new IntentFilter("com.guenwoo.expedometer.step");
@@ -112,6 +126,9 @@ public class FragmentRunScreen extends Fragment
 
                         String oTime = "";
                         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd");
+
+                        Address = makeAddress.getAddress();
+                        tvCurLocation.setText(Address);
 
                         // Preference 값 - 로드
                         String saveTime = prefs.getString("Days", "");
@@ -144,6 +161,9 @@ public class FragmentRunScreen extends Fragment
                     BtnStart.setText("START");
 
                     try{
+
+                        Address = makeAddress.getAddress();
+                        tvCurLocation.setText(Address);
 
                         // Receiver , Service 해제
                         getActivity().unregisterReceiver(receiver);

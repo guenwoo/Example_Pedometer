@@ -12,19 +12,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <TextView
-            android:text="현재 위치 : "
+            android:text="현재 위치"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:textSize="23dp"
             android:id="@+id/textview_location" />
 
         <TextView
             android:text="--"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="23dp"
+            android:layout_height="60dp"
+            android:textSize="20dp"
             android:id="@+id/tv_curlocation" />
     </LinearLayout>
 
